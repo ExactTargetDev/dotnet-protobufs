@@ -16,6 +16,8 @@ src/ProtoGen.Test/bin/
 src/ProtoGen.Test/obj/
 src/ProtoMunge/bin/
 src/ProtoMunge/obj/
+src/MSBuild/bin/
+src/MSBuild/obj/
 tmp/
 dist/
 *.user
