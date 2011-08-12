@@ -34,6 +34,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Google.ProtocolBuffers.DescriptorProtos;
 
 namespace Google.ProtocolBuffers.ProtoGen {
@@ -71,8 +72,23 @@ namespace Google.ProtocolBuffers.ProtoGen {
       //string baseDir = "c:\\Users\\Jon\\Documents\\Visual Studio 2008\\Projects\\ProtocolBuffers";
       //options.OutputDirectory = baseDir + "\\tmp";
       //options.InputFiles = new[] { baseDir + "\\protos\\nwind-solo.protobin" };
+	  List<string> files = new List<string>();
+
+	  if (args.Length == 1 && !File.Exists(args[0]))
+	  {
+		  if (Directory.Exists(args[0]))
+		  {
+			  string[] protobinFiles = Directory.GetFiles(args[0], "*.protobin", SearchOption.AllDirectories);
+
+			  foreach (string fileName in protobinFiles)
+			  {
+				  files.Add(fileName);
+			  }
+		  }
+	  }
+
       options.OutputDirectory = ".";
-      options.InputFiles = args;
+	  options.InputFiles = (files.Count == 0) ? args : files.ToArray();
       return options;
     }
   }
